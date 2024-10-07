@@ -104,3 +104,6 @@ Thumbs.db
 
 # VS Code Python extension
 .vscode/settings.json
+
+# Media files
+*.jpg
