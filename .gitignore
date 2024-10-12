@@ -102,8 +102,9 @@ Thumbs.db
 *.swp
 *.swo
 
-# VS Code Python extension
+# VS Code VS
 .vscode/settings.json
+.vs/
 
 # Media files
 *.jpg

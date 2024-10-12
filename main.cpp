@@ -5,6 +5,17 @@
 
 SYSTEMTIME stUTC, stLocal;
 
+bool moveFileToFolder(const char* sourcePath, const char* destinationPath)
+{
+    if (MoveFile(sourcePath, destinationPath)) {
+        std::cout << "File moved successfully." << std::endl;
+        return true;
+    }
+    else {
+        std::cerr << "Failed to move file. Error: " << GetLastError() << std::endl;
+        return false;
+    }
+}
 
 bool createFolderIfNotExists(const char* folderPath) 
 {
@@ -63,9 +74,36 @@ const char* getFileCreationYearInfo(const char* filePath)
     return NULL;
 }
 
+void sortFilesByYearOfCreationWindows(const char* folderPathSource, const char* folderPathDestination)
+{
+    HANDLE hFind;
+    WIN32_FIND_DATA FindFileData;
+
+    if ((hFind = FindFirstFile(folderPathSource, &FindFileData)) != INVALID_HANDLE_VALUE)
+    {
+        do {
+            if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+                continue; // Skip directories for now. TODO: handle directory
+
+            auto fullFilePathSource = folderPathSource + "\\" + FindFileData.cFileName;
+            auto yearOfFileCreation = getFileCreationYearInfo(fullFilePathSource);
+            auto fullFolderPathDestination = folderPathDestination + "\\" + yearOfFileCreation;
+            
+            if (createFolderIfNotExists(fullFolderPathDestination))
+            {
+                moveFileToFolder(fullFilePathSource, fullFolderPathDestination);
+            }
+        } while (FindNextFile(hFind, &FindFileData));
+        FindClose(hFind);
+    }
+    else {
+        printf("Terminal failure: Unable to open folder \"%s\".\n", folderPathFrom);
+    }
+}
+
 int main(int argc, char *argv[]) 
 {
-    getFileCreationYearInfo("H:\\projects\\YearlyMediaSorter\\testdata\\filetomove.jpg");
+    sortFilesByYearOfCreationWindows("H:\\projects\\YearlyMediaSorter\\testdata", "H:\projects\YearlyMediaSorter\testdata\moveto");
     return 0;
 }
 
