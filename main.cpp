@@ -82,28 +82,37 @@ void sortFilesByYearOfCreationWindows(const char* folderPathSource, const char* 
     if ((hFind = FindFirstFile(folderPathSource, &FindFileData)) != INVALID_HANDLE_VALUE)
     {
         do {
-            if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+            //TODO: FIX
+#if 0
+            if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+                printf("Directory was spotted\n");
                 continue; // Skip directories for now. TODO: handle directory
+            }
+#endif
+            auto fullFilePathSource = std::string(folderPathSource) + "\\" + FindFileData.cFileName;
+            printf("FolderFrom \"%s\"", fullFilePathSource);
 
-            auto fullFilePathSource = folderPathSource + "\\" + FindFileData.cFileName;
-            auto yearOfFileCreation = getFileCreationYearInfo(fullFilePathSource);
-            auto fullFolderPathDestination = folderPathDestination + "\\" + yearOfFileCreation;
+            auto yearOfFileCreation = getFileCreationYearInfo(fullFilePathSource.c_str());
+            auto fullFolderPathDestination = std::string(folderPathDestination) + "\\" + yearOfFileCreation;
+
+            printf("FolderTO \"%s\"", fullFolderPathDestination);
             
-            if (createFolderIfNotExists(fullFolderPathDestination))
+            if (createFolderIfNotExists(fullFolderPathDestination.c_str()))
             {
-                moveFileToFolder(fullFilePathSource, fullFolderPathDestination);
+                moveFileToFolder(fullFilePathSource.c_str(), fullFolderPathDestination.c_str());
             }
         } while (FindNextFile(hFind, &FindFileData));
         FindClose(hFind);
     }
     else {
-        printf("Terminal failure: Unable to open folder \"%s\".\n", folderPathFrom);
+        printf("Terminal failure: Unable to open folder \"%s\".\n", folderPathSource);
     }
 }
 
 int main(int argc, char *argv[]) 
 {
-    sortFilesByYearOfCreationWindows("H:\\projects\\YearlyMediaSorter\\testdata", "H:\projects\YearlyMediaSorter\testdata\moveto");
+    printf("Start\n");
+    sortFilesByYearOfCreationWindows("H:\\projects\\YearlyMediaSorter\\testdata", "H:\\projects\\YearlyMediaSorter\\moveto");
     return 0;
 }
 
