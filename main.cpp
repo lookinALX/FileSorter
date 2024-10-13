@@ -63,7 +63,7 @@ const char* getFileCreationYearInfo(const char* filePath)
         SystemTimeToTzSpecificLocalTime(NULL, &stUTC, &stLocal);
         auto creationYearWORD = stLocal.wYear;
         const char* creationYear = std::to_string(creationYearWORD).c_str();
-        printf("File \"%s\" has the year of creation --> %s", filePath, creationYear);
+        printf("File \"%s\" has the year of creation --> %s\n", filePath, creationYear);
         CloseHandle(hFile);
         return creationYear;
     } else {
@@ -79,23 +79,26 @@ void sortFilesByYearOfCreationWindows(const char* folderPathSource, const char* 
     HANDLE hFind;
     WIN32_FIND_DATA FindFileData;
 
-    if ((hFind = FindFirstFile(folderPathSource, &FindFileData)) != INVALID_HANDLE_VALUE)
+    std::string searchPattern = std::string(folderPathSource) + "\\*";
+
+    if ((hFind = FindFirstFile(searchPattern.c_str(), &FindFileData)) != INVALID_HANDLE_VALUE)
     {
         do {
-            //TODO: FIX
-#if 0
             if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-                printf("Directory was spotted\n");
-                continue; // Skip directories for now. TODO: handle directory
+                // Skip the "." and ".." directories
+                if (strcmp(FindFileData.cFileName, ".") != 0 && strcmp(FindFileData.cFileName, "..") != 0) {
+                    std::cout << "Directory spotted: " << FindFileData.cFileName << "\n";
+                }
+                continue; // Skip directories
             }
-#endif
+            printf("\"%s\"\n", folderPathSource);
             auto fullFilePathSource = std::string(folderPathSource) + "\\" + FindFileData.cFileName;
-            printf("FolderFrom \"%s\"", fullFilePathSource);
+            std::cout << "Processing file: \"" << fullFilePathSource << "\"\n";
 
             auto yearOfFileCreation = getFileCreationYearInfo(fullFilePathSource.c_str());
             auto fullFolderPathDestination = std::string(folderPathDestination) + "\\" + yearOfFileCreation;
 
-            printf("FolderTO \"%s\"", fullFolderPathDestination);
+            std::cout << "Destination folder: " << fullFolderPathDestination << "\"\n";
             
             if (createFolderIfNotExists(fullFolderPathDestination.c_str()))
             {
@@ -112,7 +115,7 @@ void sortFilesByYearOfCreationWindows(const char* folderPathSource, const char* 
 int main(int argc, char *argv[]) 
 {
     printf("Start\n");
-    sortFilesByYearOfCreationWindows("H:\\projects\\YearlyMediaSorter\\testdata", "H:\\projects\\YearlyMediaSorter\\moveto");
+    sortFilesByYearOfCreationWindows(argv[1], argv[2]);
     return 0;
 }
 
