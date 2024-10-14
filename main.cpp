@@ -40,7 +40,7 @@ bool createFolderIfNotExists(const char* folderPath)
     }
 }
 
-const char* getFileCreationYearInfo(const char* filePath)
+std::string getFileCreationYearInfo(const char* filePath)
 {
     HANDLE hFile; 
     hFile = CreateFile(filePath,                     // name of the write
@@ -62,8 +62,8 @@ const char* getFileCreationYearInfo(const char* filePath)
         FileTimeToSystemTime(&creationTime, &stUTC);
         SystemTimeToTzSpecificLocalTime(NULL, &stUTC, &stLocal);
         auto creationYearWORD = stLocal.wYear;
-        const char* creationYear = std::to_string(creationYearWORD).c_str();
-        printf("File \"%s\" has the year of creation --> %s\n", filePath, creationYear);
+        std::string creationYear = std::to_string(creationYearWORD);
+        std::cout << "File " << std::string(filePath) << "has the year of creation--> " << creationYear << std::endl;
         CloseHandle(hFile);
         return creationYear;
     } else {
