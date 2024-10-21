@@ -5,9 +5,18 @@
 
 SYSTEMTIME stUTC, stLocal;
 
-bool moveFileToFolder(const char* sourcePath, const char* destinationPath)
+void removeReadOnlyAttribute(const std::string& filePath)
 {
-    if (MoveFile(sourcePath, destinationPath)) {
+    DWORD fileAttributes = GetFileAttributesA(filePath.c_str());
+    if (fileAttributes & FILE_ATTRIBUTE_READONLY) {
+        fileAttributes &= ~FILE_ATTRIBUTE_READONLY;
+        SetFileAttributesA(filePath.c_str(), fileAttributes);
+    }
+}
+
+bool moveFileToFolder(std::string sourcePath, std::string destinationPath)
+{
+    if (MoveFileEx(sourcePath.c_str(), destinationPath.c_str(), MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED)) {
         std::cout << "File moved successfully." << std::endl;
         return true;
     }
@@ -43,7 +52,7 @@ bool createFolderIfNotExists(const char* folderPath)
 std::string getFileCreationYearInfo(const char* filePath)
 {
     HANDLE hFile; 
-    hFile = CreateFile(filePath,                     // name of the write
+    hFile = CreateFile(filePath,                     // name of the file
                     GENERIC_WRITE,                   // open for write
                     FILE_SHARE_WRITE,                // share write
                     NULL,                            // default security
@@ -54,7 +63,7 @@ std::string getFileCreationYearInfo(const char* filePath)
     if (hFile == INVALID_HANDLE_VALUE) 
     { 
         printf("Terminal failure: Unable to open file \"%s\".\n", filePath);
-        return NULL;
+        return "";
     }   
 
     FILETIME creationTime, accessTime, writeTime;
@@ -63,7 +72,7 @@ std::string getFileCreationYearInfo(const char* filePath)
         SystemTimeToTzSpecificLocalTime(NULL, &stUTC, &stLocal);
         auto creationYearWORD = stLocal.wYear;
         std::string creationYear = std::to_string(creationYearWORD);
-        std::cout << "File " << std::string(filePath) << "has the year of creation--> " << creationYear << std::endl;
+        std::cout << "File " << std::string(filePath) << " has the year of creation--> " << creationYear << std::endl;
         CloseHandle(hFile);
         return creationYear;
     } else {
@@ -71,7 +80,7 @@ std::string getFileCreationYearInfo(const char* filePath)
     }
 
     CloseHandle(hFile);
-    return NULL;
+    return "";
 }
 
 void sortFilesByYearOfCreationWindows(const char* folderPathSource, const char* folderPathDestination)
@@ -102,7 +111,8 @@ void sortFilesByYearOfCreationWindows(const char* folderPathSource, const char* 
             
             if (createFolderIfNotExists(fullFolderPathDestination.c_str()))
             {
-                moveFileToFolder(fullFilePathSource.c_str(), fullFolderPathDestination.c_str());
+                removeReadOnlyAttribute(fullFilePathSource);
+                moveFileToFolder(fullFilePathSource, fullFolderPathDestination);
             }
         } while (FindNextFile(hFind, &FindFileData));
         FindClose(hFind);
@@ -115,7 +125,18 @@ void sortFilesByYearOfCreationWindows(const char* folderPathSource, const char* 
 int main(int argc, char *argv[]) 
 {
     printf("Start\n");
-    sortFilesByYearOfCreationWindows(argv[1], argv[2]);
+    if (argc < 3) {
+        std::string folderPathSource = "";
+        std::string folderPathDestination = "";
+        std::cout << "Source folder: " << "\n";
+        std::cin >> folderPathSource;
+        std::cout << "Destination folder: " << "\n";
+        std::cin >> folderPathDestination;
+        sortFilesByYearOfCreationWindows(folderPathSource.c_str(), folderPathDestination.c_str());
+    }
+    else {
+        sortFilesByYearOfCreationWindows(argv[1], argv[2]);
+    }
     return 0;
 }
 
