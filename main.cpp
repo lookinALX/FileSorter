@@ -1,52 +1,80 @@
 #include <iostream>
 #include <stdio.h>
 #include <windows.h>
+#include <shellapi.h>
 
 
 SYSTEMTIME stUTC, stLocal;
 
-void removeReadOnlyAttribute(const std::string& filePath)
+void ensureFileIsWritable(const std::string& filePath)
 {
     DWORD fileAttributes = GetFileAttributesA(filePath.c_str());
-    if (fileAttributes & FILE_ATTRIBUTE_READONLY) {
-        fileAttributes &= ~FILE_ATTRIBUTE_READONLY;
+    if (fileAttributes & (FILE_ATTRIBUTE_READONLY | FILE_ATTRIBUTE_HIDDEN)) {
+        fileAttributes &= ~(FILE_ATTRIBUTE_READONLY | FILE_ATTRIBUTE_HIDDEN);
+        fileAttributes |= FILE_ATTRIBUTE_NORMAL; // Ensure normal attribute
         SetFileAttributesA(filePath.c_str(), fileAttributes);
     }
 }
 
-bool moveFileToFolder(std::string sourcePath, std::string destinationPath)
+bool moveFileWithShell(const std::string& sourcePath, const std::string& destinationPath)
 {
-    if (MoveFileEx(sourcePath.c_str(), destinationPath.c_str(), MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED)) {
-        std::cout << "File moved successfully." << std::endl;
+    SHFILEOPSTRUCT fileOp = { 0 };
+    fileOp.wFunc = FO_MOVE;
+    fileOp.pFrom = sourcePath.c_str();
+    fileOp.pTo = destinationPath.c_str();
+    fileOp.fFlags = FOF_NOCONFIRMATION | FOF_SILENT;
+
+    if (SHFileOperation(&fileOp) == 0) {
+        std::cout << "File moved successfully using Shell operation." << std::endl;
+        std::cout << std::endl;
         return true;
     }
     else {
-        std::cerr << "Failed to move file. Error: " << GetLastError() << std::endl;
+        std::cerr << "Failed to move file with Shell operation. Error: " << GetLastError() << std::endl;
+        std::cout << std::endl;
         return false;
     }
 }
 
-bool createFolderIfNotExists(const char* folderPath) 
+bool moveFileToFolder(const std::string& sourcePath, const std::string& destinationPath)
 {
-    DWORD fileAttributes = GetFileAttributesA(folderPath);
-
-    if (fileAttributes == INVALID_FILE_ATTRIBUTES)
-    {
-        if (CreateDirectoryA(folderPath, NULL))
-        {
-            printf("Folder created: \"%s\". \n", folderPath);
+    if (CopyFile(sourcePath.c_str(), destinationPath.c_str(), FALSE)) {
+        if (DeleteFile(sourcePath.c_str())) {
+            std::cout << "File moved successfully." << std::endl;
             return true;
-        } else {
-            printf("Error creating folder: \"%s\". \n", folderPath);
-            std::cerr<< "Error code: " << GetLastError() << std::endl;
+        }
+        else {
+            std::cerr << "Failed to delete original file after copying. Error: " << GetLastError() << std::endl;
+        }
+    }
+    else {
+        std::cerr << "Failed to copy file. Error: " << GetLastError() << " Trying to move with Shell." << std::endl;
+        moveFileWithShell(sourcePath, destinationPath);
+    }
+    return false;
+}
+
+bool createFolderIfNotExists(const std::string& folderPath) {
+    size_t pos = 0;
+    std::string path;
+    while ((pos = folderPath.find('\\', pos)) != std::string::npos) {
+        path = folderPath.substr(0, pos++);
+        if (path.empty()) continue;
+        if (GetFileAttributesA(path.c_str()) == INVALID_FILE_ATTRIBUTES) {
+            if (!CreateDirectoryA(path.c_str(), NULL)) {
+                std::cerr << "Failed to create directory: " << path << " Error: " << GetLastError() << std::endl;
+                return false;
+            }
+        }
+    }
+    // Create the final folder in the path
+    if (GetFileAttributesA(folderPath.c_str()) == INVALID_FILE_ATTRIBUTES) {
+        if (!CreateDirectoryA(folderPath.c_str(), NULL)) {
+            std::cerr << "Failed to create directory: " << folderPath << " Error: " << GetLastError() << std::endl;
             return false;
         }
-    } else if (fileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-        return true;
-    } else {
-        std::cerr << "Error: Path exists but is not a directory: " << folderPath << std::endl;
-        return false;
     }
+    return true;
 }
 
 std::string getFileCreationYearInfo(const char* filePath)
@@ -109,10 +137,10 @@ void sortFilesByYearOfCreationWindows(const char* folderPathSource, const char* 
 
             std::cout << "Destination folder: " << fullFolderPathDestination << "\"\n";
             
-            if (createFolderIfNotExists(fullFolderPathDestination.c_str()))
+            if (createFolderIfNotExists(fullFolderPathDestination))
             {
-                removeReadOnlyAttribute(fullFilePathSource);
-                moveFileToFolder(fullFilePathSource, fullFolderPathDestination);
+                ensureFileIsWritable(fullFilePathSource);
+                moveFileWithShell(fullFilePathSource, fullFolderPathDestination);
             }
         } while (FindNextFile(hFind, &FindFileData));
         FindClose(hFind);
