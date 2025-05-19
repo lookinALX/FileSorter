@@ -1,0 +1,15 @@
+D:\projects\FileSorter\FileSorter\bin\Debug\net9.0\FileSorter.exe
+D:\projects\FileSorter\FileSorter\bin\Debug\net9.0\FileSorter.deps.json
+D:\projects\FileSorter\FileSorter\bin\Debug\net9.0\FileSorter.runtimeconfig.json
+D:\projects\FileSorter\FileSorter\bin\Debug\net9.0\FileSorter.dll
+D:\projects\FileSorter\FileSorter\bin\Debug\net9.0\FileSorter.pdb
+D:\projects\FileSorter\FileSorter\obj\Debug\net9.0\FileSorter.GeneratedMSBuildEditorConfig.editorconfig
+D:\projects\FileSorter\FileSorter\obj\Debug\net9.0\FileSorter.AssemblyInfoInputs.cache
+D:\projects\FileSorter\FileSorter\obj\Debug\net9.0\FileSorter.AssemblyInfo.cs
+D:\projects\FileSorter\FileSorter\obj\Debug\net9.0\FileSorter.csproj.CoreCompileInputs.cache
+D:\projects\FileSorter\FileSorter\obj\Debug\net9.0\FileSorter.sourcelink.json
+D:\projects\FileSorter\FileSorter\obj\Debug\net9.0\FileSorter.dll
+D:\projects\FileSorter\FileSorter\obj\Debug\net9.0\refint\FileSorter.dll
+D:\projects\FileSorter\FileSorter\obj\Debug\net9.0\FileSorter.pdb
+D:\projects\FileSorter\FileSorter\obj\Debug\net9.0\FileSorter.genruntimeconfig.cache
+D:\projects\FileSorter\FileSorter\obj\Debug\net9.0\ref\FileSorter.dll
