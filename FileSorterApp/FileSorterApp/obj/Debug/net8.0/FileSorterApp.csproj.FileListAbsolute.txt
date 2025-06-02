@@ -1,0 +1,15 @@
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\bin\Debug\net8.0\FileSorterApp.exe
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\bin\Debug\net8.0\FileSorterApp.deps.json
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\bin\Debug\net8.0\FileSorterApp.runtimeconfig.json
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\bin\Debug\net8.0\FileSorterApp.dll
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\bin\Debug\net8.0\FileSorterApp.pdb
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\obj\Debug\net8.0\FileSorterApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\obj\Debug\net8.0\FileSorterApp.AssemblyInfoInputs.cache
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\obj\Debug\net8.0\FileSorterApp.AssemblyInfo.cs
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\obj\Debug\net8.0\FileSorterApp.csproj.CoreCompileInputs.cache
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\obj\Debug\net8.0\FileSorterApp.sourcelink.json
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\obj\Debug\net8.0\FileSorterApp.dll
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\obj\Debug\net8.0\refint\FileSorterApp.dll
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\obj\Debug\net8.0\FileSorterApp.pdb
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\obj\Debug\net8.0\FileSorterApp.genruntimeconfig.cache
+D:\projects\FileSorter\FileSorterApp\FileSorterApp\obj\Debug\net8.0\ref\FileSorterApp.dll
