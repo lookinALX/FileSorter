@@ -9,4 +9,9 @@ public class FileOrganizer
             FileSystemHelper.CreateDirectory(Path.Combine(path, ext));
         }
     }
+
+    public void CreateDirectoriesBasedOnFileDates(string pathForNewDir, DateTime[] dates)
+    {
+        
+    }
 }

@@ -6,5 +6,7 @@ var fileOrganizer = new FileOrganizer();
 
 const string testDirectory = @"D:\projects\FileSorter\FileSorterApp\FileSorterApp.Tests\TestDirectory";
 
-fileOrganizer.CreateDirectoriesBasedOnFileExtensions(testDirectory, 
-    FileSystemHelper.ExtractFileExtensions(FileSystemHelper.GetFiles(testDirectory)));
+/*fileOrganizer.CreateDirectoriesBasedOnFileExtensions(testDirectory, 
+    FileSystemHelper.GetFiles(testDirectory).ExtractFileExtensions());*/
+
+FileSystemHelper.GetFiles(testDirectory).SplitDateTimeInMonthAndYear();

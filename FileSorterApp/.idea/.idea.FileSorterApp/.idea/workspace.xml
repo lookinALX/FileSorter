@@ -47,7 +47,21 @@
       <change beforePath="$PROJECT_DIR$/../FileSorter/obj/rider.project.restore.info" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FileSorter/src/app/Program.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FileSorter/src/utils/FileSorter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FileSorter/tests/FileSorterTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FileSorterApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FileSorterApp/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/FileOrganizer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/FileOrganizer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/FileSystemHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/FileSystemHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/bin/Debug/net8.0/FileSorterApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/bin/Debug/net8.0/FileSorterApp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/bin/Debug/net8.0/FileSorterApp.exe" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/bin/Debug/net8.0/FileSorterApp.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/bin/Debug/net8.0/FileSorterApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/bin/Debug/net8.0/FileSorterApp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/FileSorterApp.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/FileSorterApp.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/FileSorterApp.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/FileSorterApp.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/FileSorterApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/FileSorterApp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/FileSorterApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/FileSorterApp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/FileSorterApp.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/FileSorterApp.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/ref/FileSorterApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/ref/FileSorterApp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/refint/FileSorterApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/FileSorterApp/obj/Debug/net8.0/refint/FileSorterApp.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +122,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1748890285079</updated>
-      <workItem from="1748890286288" duration="4668000" />
+      <workItem from="1748890286288" duration="8716000" />
     </task>
     <servers />
   </component>
@@ -118,5 +132,29 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/FileSorterApp/FileSystemHelper.cs</url>
+          <line>38</line>
+          <properties documentPath="D:\projects\FileSorter\FileSorterApp\FileSorterApp\FileSystemHelper.cs" containingFunctionPresentation="Method 'SplitDateTimeInMonthAndYear'">
+            <startOffsets>
+              <option value="1158" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1170" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Frame#FileSorterApp.FileSystemHelper.SplitDateTimeInMonthAndYear" memberName="dates" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>
